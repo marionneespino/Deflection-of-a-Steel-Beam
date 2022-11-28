@@ -1,0 +1,30 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+data=pd.read_csv("BendingLab.csv")
+y=data["deflection avg (m)"]
+P=data["mass (kg)"]
+L=0.28
+E=200000000000
+b=0.028
+h=0.001
+I=(b*h**3)/12
+x=(P*L**3)/(E*I)
+
+fig,ax1=plt.subplots()
+plt1=ax1.plot(x,y)
+gradient=0.08267205215419496
+plt.plot(x,gradient*x+1.3333200000000042e-05)
+
+#slope,intercept=np.polyfit(x,y,1)
+#plt.figure()
+#plt.plot(x,y) 
+#plt.plot(np.unique(x), np.poly1d(np.polyfit(x,y, 1))(np.unique(x)))
+
+ax1.set_title("Deflection of Steel Beam")
+ax1.set_xlabel("$PL^3/EI$")
+ax1.set_ylabel("Deflection (m)")
+
+plt.show()
+fig.savefig("BendingLabGraph.png",dpi=400)
